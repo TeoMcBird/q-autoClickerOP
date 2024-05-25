@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>autoclicker.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #ee7762;}
+.s1 { color: #dddedf;}
+.s2 { color: #ffb900;}
+.s3 { color: #9380ff;}
+.s4 { color: #ffbdce;}
+.s5 { color: #57d1eb;}
+.s6 { color: #ffd866;}
+.s7 { color: #0078d7;}
+</style>
+</head>
+<body bgcolor="#171615">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+autoclicker.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">time</span>
+<span class="s0">import </span><span class="s1">threading</span>
+<span class="s0">from </span><span class="s1">pynput</span><span class="s2">.</span><span class="s1">mouse </span><span class="s0">import </span><span class="s1">Controller</span><span class="s3">, </span><span class="s1">Button</span>
+<span class="s0">from </span><span class="s1">pynput</span><span class="s2">.</span><span class="s1">keyboard </span><span class="s0">import </span><span class="s1">Listener</span><span class="s3">, </span><span class="s1">KeyCode</span>
+
+<span class="s1">TOGGLE_KEY </span><span class="s4">= </span><span class="s1">KeyCode</span><span class="s5">(</span><span class="s1">char</span><span class="s4">=</span><span class="s6">'q'</span><span class="s5">)</span>
+
+<span class="s1">clicking </span><span class="s4">= </span><span class="s0">False</span>
+<span class="s1">mouse </span><span class="s4">= </span><span class="s1">Controller</span><span class="s5">()</span>
+
+
+<span class="s0">def </span><span class="s1">clicker</span><span class="s5">()</span><span class="s4">:</span>
+    <span class="s0">while True</span><span class="s4">:</span>
+        <span class="s0">if </span><span class="s1">clicking</span><span class="s4">:</span>
+            <span class="s1">mouse</span><span class="s2">.</span><span class="s1">click</span><span class="s5">(</span><span class="s1">Button</span><span class="s2">.</span><span class="s1">left</span><span class="s3">, </span><span class="s7">1</span><span class="s5">)</span>
+        <span class="s1">time</span><span class="s2">.</span><span class="s1">sleep</span><span class="s5">(</span><span class="s7">0.001</span><span class="s5">)</span>
+
+
+<span class="s0">def </span><span class="s1">toggle_event</span><span class="s5">(</span><span class="s1">key</span><span class="s5">)</span><span class="s4">:</span>
+    <span class="s0">if </span><span class="s1">key </span><span class="s4">== </span><span class="s1">TOGGLE_KEY</span><span class="s4">:</span>
+        <span class="s0">global </span><span class="s1">clicking</span>
+        <span class="s1">clicking </span><span class="s4">= </span><span class="s0">not </span><span class="s1">clicking</span>
+
+
+<span class="s1">click_thread </span><span class="s4">= </span><span class="s1">threading</span><span class="s2">.</span><span class="s1">Thread</span><span class="s5">(</span><span class="s1">target</span><span class="s4">=</span><span class="s1">clicker</span><span class="s5">)</span>
+<span class="s1">click_thread</span><span class="s2">.</span><span class="s1">start</span><span class="s5">()</span>
+
+<span class="s0">with </span><span class="s1">Listener</span><span class="s5">(</span><span class="s1">on_press</span><span class="s4">=</span><span class="s1">toggle_event</span><span class="s5">) </span><span class="s0">as </span><span class="s1">listener</span><span class="s4">:</span>
+    <span class="s1">listener</span><span class="s2">.</span><span class="s1">join</span><span class="s5">()</span></pre>
+</body>
+</html>
